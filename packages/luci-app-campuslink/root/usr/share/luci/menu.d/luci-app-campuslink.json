@@ -1,0 +1,8 @@
+{
+  "admin/services/campuslink": {
+    "title": "CampusLink 校园网",
+    "order": 60,
+    "action": {"type":"view","path":"campuslink/main"},
+    "depends": {"acl":["luci-app-campuslink"]}
+  }
+}

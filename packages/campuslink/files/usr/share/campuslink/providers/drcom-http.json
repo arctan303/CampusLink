@@ -1,0 +1,13 @@
+{
+  "schema_version":1,"id":"drcom-http","label":"Dr.COM HTTP 门户","credential_type":"username_password",
+  "capabilities":{"check":true,"login":true,"logout":false,"heartbeat":false},
+  "account_fields":[{"id":"username","label":"校园网账号","type":"string","required":true},{"id":"password","label":"校园网密码","type":"secret","required":true}],
+  "connection_fields":[
+    {"id":"auth_server","label":"认证服务器","type":"string","required":false},
+    {"id":"auth_url","label":"自定义登录地址","type":"url","required":false,"advanced":true},
+    {"id":"status_url","label":"自定义状态地址","type":"url","required":false,"advanced":true},
+    {"id":"logout_url","label":"自定义退出地址","type":"url","required":false,"advanced":true,"capability":"logout"},
+    {"id":"probe_url","label":"联网探测地址","type":"url","required":true,"default":"http://connectivitycheck.platform.hicloud.com/generate_204","advanced":true},
+    {"id":"terminal_mode","label":"终端方式","type":"enum","scope":"connection","required":true,"default":"pc","choices":[{"value":"pc","label":"电脑"},{"value":"mobile","label":"手机"}]}
+  ]
+}

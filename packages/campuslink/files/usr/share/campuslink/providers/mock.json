@@ -1,0 +1,6 @@
+{
+  "schema_version":1,"id":"mock","label":"模拟提供商（测试用）","credential_type":"username_password",
+  "capabilities":{"check":true,"login":true,"logout":true,"heartbeat":false},
+  "account_fields":[{"id":"username","label":"测试账号","type":"string","required":true},{"id":"password","label":"测试密码","type":"secret","required":true}],
+  "connection_fields":[{"id":"scenario","label":"模拟场景","type":"enum","scope":"connection","required":true,"default":"portal","choices":[{"value":"online","label":"已联网"},{"value":"portal","label":"未登录，可登录"},{"value":"reject","label":"密码错误"},{"value":"rate_limit","label":"限流"},{"value":"timeout","label":"超时"}]}]
+}

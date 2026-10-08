@@ -1,0 +1,5 @@
+{
+  "schema_version":1,"id":"local-campus","label":"本校","provider":"drcom-http","verification_status":"verified",
+  "verification":{"date":"2026-10-08","environment":"Kwrt 25.12-SNAPSHOT / curl 8.22.0 / four macvlan WANs","summary":"Two accounts, PC/mobile login on four outlets; HTTP 204 verified. Identity cannot be confirmed. Logout is unsupported."},
+  "defaults":{"auth_server":"1.1.1.1","terminal_mode":"pc"}
+}

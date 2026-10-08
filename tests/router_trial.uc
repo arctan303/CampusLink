@@ -1,0 +1,21 @@
+// Explicit per-interface protocol trial; credentials are supplied in a private file.
+import * as fs from 'fs';
+import * as ubus from 'ubus';
+import * as provider from '/tmp/cl-src/providers/drcom-http.uc';
+let credentials=json(fs.readfile('/tmp/cl-trial/accounts.json'));
+let bus=ubus.connect();
+let iface=ARGV[0], operation=ARGV[1], key=ARGV[2];
+if(!match(iface,/^wan[1-4]$/) || index(['check','login','logout'],operation)<0)die('invalid_trial\n');
+let s=bus.call('network.interface.'+iface,'status',{});
+if(!s?.up || !s['ipv4-address']?.[0]?.address)die('interface_unavailable\n');
+let dir=fs.mkdtemp('/tmp/cl-trial/job-XXXXXX');
+let params=json(fs.readfile('/tmp/cl-src/schools/local-campus.json')).defaults;
+params.terminal_mode=(iface=='wan2' || iface=='wan4')?'mobile':'pc';
+let ctx={account:{values:credentials[key]},connection:{interface:iface},params,route:{device:s.l3_device,ip:s['ipv4-address'][0].address},workdir:dir};
+let response;
+if(operation=='login')response=provider.login(ctx);
+else if(operation=='logout')response=provider.logout(ctx);
+else response=provider.check(ctx);
+print(sprintf('%J\n',{interface:iface,operation,device:ctx.route.device,ip:ctx.route.ip,result:response}));
+for(let file in ['curl.conf','body','headers'])fs.unlink(dir+'/'+file);
+fs.rmdir(dir);

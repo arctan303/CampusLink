@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CampusLink provider metadata v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "label", "credential_type", "capabilities", "account_fields", "connection_fields"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"$ref": "#/$defs/id"},
+    "label": {"type": "string", "minLength": 1, "maxLength": 128},
+    "description": {"type": "string", "maxLength": 1024},
+    "credential_type": {"const": "username_password"},
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["check", "login", "logout", "heartbeat"],
+      "properties": {
+        "check": {"const": true},
+        "login": {"const": true},
+        "logout": {"type": "boolean"},
+        "heartbeat": {"const": false}
+      }
+    },
+    "account_fields": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/field"}, "prefixItems": [{"properties":{"id":{"const":"username"},"type":{"const":"string"},"required":{"const":true}}},{"properties":{"id":{"const":"password"},"type":{"const":"secret"},"required":{"const":true}}}]},
+    "connection_fields": {
+      "type": "array", "maxItems": 64,
+      "items": {"allOf": [{"$ref": "#/$defs/field"}, {"properties": {"type": {"not": {"const": "secret"}}}}]}
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]{0,63}$"},
+    "choice": {
+      "type": "object", "additionalProperties": false, "required": ["value", "label"],
+      "properties": {"value": {"type": "string", "minLength": 1, "maxLength": 128}, "label": {"type": "string", "minLength": 1, "maxLength": 128}}
+    },
+    "field": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "label", "type", "required"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "label": {"type": "string", "minLength": 1, "maxLength": 128},
+        "type": {"enum": ["string", "secret", "enum", "integer", "boolean", "url"]},
+        "required": {"type": "boolean"},
+        "description": {"type": "string", "maxLength": 1024},
+        "advanced": {"type": "boolean"},
+        "scope": {"enum": ["global", "connection"]},
+        "capability": {"enum": ["logout", "heartbeat"]},
+        "default": {"type": ["string", "integer", "boolean"]},
+        "choices": {"type": "array", "minItems": 1, "maxItems": 128, "items": {"$ref": "#/$defs/choice"}},
+        "min": {"type": "integer"},
+        "max": {"type": "integer"}
+      },
+      "allOf": [
+        {"if": {"properties": {"type": {"const": "secret"}}}, "then": {"not": {"required": ["default"]}}},
+        {"if": {"properties": {"type": {"const": "enum"}}}, "then": {"required": ["choices"], "properties": {"default": {"type": "string"}}}, "else": {"not": {"required": ["choices"]}}},
+        {"if": {"properties": {"type": {"const": "integer"}}}, "then": {"properties": {"default": {"type": "integer"}}}, "else": {"allOf": [{"not": {"required": ["min"]}}, {"not": {"required": ["max"]}}]}},
+        {"if": {"properties": {"type": {"const": "boolean"}}}, "then": {"properties": {"default": {"type": "boolean"}}}},
+        {"if": {"properties": {"type": {"enum": ["string", "url"]}}}, "then": {"properties": {"default": {"type": "string"}}}}
+      ]
+    }
+  }
+}

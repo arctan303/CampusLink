@@ -1,0 +1,7 @@
+{
+  "luci-app-campuslink": {
+    "description":"CampusLink campus authentication",
+    "read":{"ubus":{"campuslink":["get"]}},
+    "write":{"ubus":{"campuslink":["save","action"]}}
+  }
+}

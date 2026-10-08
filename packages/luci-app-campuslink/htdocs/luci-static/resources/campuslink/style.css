@@ -1,0 +1,22 @@
+.campuslink .cl-tabs{display:flex;gap:4px;border-bottom:1px solid #ddd;margin:16px 0;flex-wrap:wrap}
+.campuslink .cl-tab{border:0;background:transparent;padding:10px 20px;color:inherit;cursor:pointer;border-bottom:3px solid transparent;font:inherit}
+.campuslink .cl-tab.active{border-bottom-color:#2383c4;font-weight:600}
+.campuslink .cl-tab:focus-visible{outline:2px solid #2383c4;outline-offset:-2px}
+.campuslink .cl-table-wrap{overflow-x:auto;margin-bottom:16px}
+.campuslink th,.campuslink td{padding:12px 10px;vertical-align:middle;text-align:left}
+.campuslink .cl-actions,.cl-modal-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.campuslink .cl-secondary{font-size:.9em;opacity:.7;margin-top:4px;white-space:nowrap}
+.campuslink .cl-status{display:inline-block;border-radius:3px;padding:3px 8px;background:#eee;color:#333;white-space:nowrap}
+.campuslink .cl-online{background:#e6f4ea;color:#23633a}
+.campuslink .cl-backoff,.campuslink .cl-action_required{background:#fff0df;color:#8a4b10}
+.campuslink .cl-error-reason{max-width:24em;margin-top:6px;font-size:.9em}
+.campuslink .cl-toolbar{margin-bottom:16px}
+.campuslink .cl-empty{text-align:center;padding:32px;opacity:.7}
+.cl-editor .cbi-value{padding:8px 0}
+.cl-editor .cl-check{display:inline-flex;align-items:center;gap:6px;margin-right:16px;cursor:pointer}
+.cl-editor .cl-inline-account{border-left:3px solid #ddd;padding-left:12px;margin:0 0 8px}
+.cl-editor .cl-advanced{border-top:1px solid #ddd;margin-top:16px;padding-top:12px}
+.cl-editor .cl-advanced summary{cursor:pointer;margin-bottom:8px}
+.cl-form-error{color:#b02020;padding:8px 0;white-space:pre-wrap}
+.cl-modal-actions{margin-top:16px}
+@media(max-width:600px){.campuslink .cl-tab{padding:10px 12px}.cl-editor .cbi-value-title{float:none;display:block;width:auto;text-align:left}.cl-editor .cbi-value-field{margin-left:0}.cl-editor input.cbi-input-text,.cl-editor select{width:100%;max-width:100%}}
