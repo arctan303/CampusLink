@@ -9,7 +9,7 @@
 - CampusLink 0.3.0 后台与 LuCI 已安装，原 schema 1 经页面保存为 schema 2，插件服务重启验证通过。两账号绑定四 WAN：A 的电脑/手机对应 wan1/2，B 的电脑/手机对应 wan3/4。原账号/密码、绑定、终端、有效端点和开关保留；四路在线，自动登录开，共用 60 秒检查。账号信息仅在路由器私有配置。
 - 原生 LuCI 总览/登录配置/账号/插件设置/日志标签已上线；认证系统、学校、服务器、检查/重试周期和探测在插件层统一管理，每路只绑定接口、账号、终端和开关。新建线路可同时新增账号，Dr.COM 服务器自动派生端点，高级覆盖保留，密码不回读。公共保存/草稿/迁移/服务重启/小屏/ACL 与独立复核见 [0.3.0](testing/0.3.0.md)；原界面流程见 [0.2.0](testing/0.2.0.md)，受控认证恢复、错误/冷却、安装/卸载等原核心证据见 [0.1.0](testing/0.1.0.md)。
 - 当前实际认证账号无法核验；本校退出未能验证，因此不显示退出按钮。禁用停止插件任务，不退出校园会话。其他固件/APK/版本迁移尚未验证。
-- 新插件 IPK 和不含旧脚本的源码包在 dist/；[安装与开发](Install.md)、[架构](Architecture.md)、[提供商契约](contracts/provider-v1.md)。尚未推送或公开 GitHub。
+- 新插件 IPK 和不含旧脚本的源码包在 dist/；[安装与开发](Install.md)、[架构](Architecture.md)、[提供商契约](contracts/provider-v1.md)。0.3.0 源码已于 2026-10-08 同步到 [GitHub main](https://github.com/arctan303/CampusLink)，提交及远端回读见 [仓库同步](tasks/repository-push.md)；未创建 GitHub Release 或上传 IPK。
 - 核心 CL-R01–08 和发布检查 CL-R09 均已关闭；最终交付独立复核通过，见 [报告](reviews/cl-03.md)。
 
 ## 后续工作与保留资料

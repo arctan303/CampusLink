@@ -16,4 +16,4 @@
 
 验证见 [0.3.0](../testing/0.3.0.md)，fresh reviewer 首审及一次聚焦复核见 [报告](../reviews/plugin-settings.md)，唯一示例作用域问题已关闭。最终包及源码经私有注入和确定性构建审计；实际安装源码哈希与最终工作区一致。本轮未重新真实退出/踢出校园会话，沿用原协议与出口验证；旧包/schema 回退流程文档化，未在正式 schema 2 上再次执行降级。
 
-恢复基线 `.local/settings-baseline` 为 0.2.0 本轮纯源码副本，旧 0.2.0 IPK 保留在 dist；设备 `/tmp/campuslink-settings-backup` 为 root 私有原配置和旧包（重启路由器会清空 /tmp）。本轮临时 mock 服务、测试目录与准确匹配的临时 SSH 公钥已清理，正式服务仍运行。本轮不修改其他网络任务，未推送或发布 GitHub。
+恢复基线 `.local/settings-baseline` 为 0.2.0 本轮纯源码副本，旧 0.2.0 IPK 保留在 dist；设备 `/tmp/campuslink-settings-backup` 为 root 私有原配置和旧包（重启路由器会清空 /tmp）。本轮临时 mock 服务、测试目录与准确匹配的临时 SSH 公钥已清理，正式服务仍运行。本轮不修改其他网络任务。设备验收时未推送 GitHub；随后按用户明确授权完成 [仓库同步](repository-push.md)，未创建 Release。

@@ -8,4 +8,6 @@
 
 依赖与证据：原 main 为 `8607acb60486cbb14b0a7d3e2ea2ff6b18946cac`，远端回读与本机一致；0.3.0 设备及打包证据见 [测试](../testing/0.3.0.md)。提交前检查实际 staged blob、凭据/私钥、路径、格式和文件漂移；推送后回读远端 main 的 commit ID，禁止 force push。
 
-状态：准备提交及推送。授权仅为本次仓库同步；提交和远端回读后更新发布状态，失败保留本机提交及具体恢复动作。
+状态：本次仓库同步完成。源码提交 `08ff6df18f04ebd5eebd988caa03265542874fd9`（`feat: add CampusLink 0.3.0 OpenWrt login manager`）已正常推送至 origin/main，独立 `git ls-remote --heads origin main` 回读与本机提交一致。111 个新增/修改文件的 staged blob 检查通过：无提供的账号/密码、真实私钥或令牌，无排除路径或暂存后漂移，JSON 有效；`git diff --cached --check` 与确定性构建/交付审计通过。保留已有运行验证与独立审查，不声称重新运行所有设备场景。
+
+同步后更新本文件和现状入口，文档回执单独提交。授权仅为本次仓库同步，没有创建 GitHub Release 或上传 IPK，既有历史脚本及 Git 历史未改写。
