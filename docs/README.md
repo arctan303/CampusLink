@@ -11,14 +11,14 @@
 - LuCI 0.4.0 与联动 addon 0.2.0 已于 2026-10-14 更新，认证核心仍为 0.3.0；新增独立 mwan3 联动标签，学校选择已移除，登录系统与服务器保留。四条显式映射、关联成员、独立保存及实际三路排除/四路恢复通过，账号/网络/无线/代理配置和认证核心 PID 保留，见 [0.4.0 证据](testing/0.4.0.md)。原公共保存/迁移/小屏/ACL 与独立复核见 [0.3.0](testing/0.3.0.md)，原核心证据见 [0.1.0](testing/0.1.0.md)。
 - LuCI 0.4.1 于 2026-10-14 增加按 WAN 手动查询公网 IPv4，独立诊断 RPC、缓存/冷却与时间/失败显示；四路查询得到四个不同公网 IP。认证/联动进程、成员状态和配置保留；游戏设备规则尚未实施，见 [0.4.1 证据](testing/0.4.1.md)。
 - 当前实际认证账号无法核验；本校退出未能验证，因此不显示退出按钮。禁用停止插件任务，不退出校园会话。其他固件/APK/版本迁移尚未验证。
-- 新插件 IPK 和不含旧脚本的源码包在 dist/；[安装与使用](Install.md)、[架构](Architecture.md)、[提供商契约](contracts/provider-v1.md)。0.3.0 源码的既有同步见 [CL-PUSH-01](tasks/repository-push.md)；本轮源码同步、v0.4.1 IPK 发布及中文 About 由 [CL-REL-02](tasks/release-0.4.1.md)承接，正在准备，尚未创建 Release。
+- 新插件 IPK 和不含旧脚本的源码包在 dist/；[安装与使用](Install.md)、[架构](Architecture.md)、[提供商契约](contracts/provider-v1.md)。0.3.0 源码的既有同步见 [CL-PUSH-01](tasks/repository-push.md)；本轮源码已推送 main，中文 About 已更新，[v0.4.1 Release](https://github.com/arctan303/CampusLink/releases/tag/v0.4.1) 已于 2026-10-14 正式发布三个 IPK、干净源码包及 SHA256SUMS；全部公开附件下载与哈希回读通过，见 [CL-REL-02](tasks/release-0.4.1.md)。
 - 核心 CL-R01–08 和发布检查 CL-R09 均已关闭；最终交付独立复核通过，见 [报告](reviews/cl-03.md)。
 
 ## 后续工作与保留资料
 
 2026-10-14 本轮功能需求已确认、尚未开发：并发上限 4、账号级熔断及全部检查由 [CL-CORE-01](tasks/concurrency-account-fuse.md)承接；可选 [计划停网重试](tasks/scheduled-outage-retry.md)、[一键诊断与脱敏报告](tasks/doctor-report.md)、[未知资格有条件过期](tasks/mwan3-unknown-expiry.md)分别留任务。普通/高级设置分层，手机卡片/灯号等视觉优化后置，不增加全部登录。当前运行能力仍以上述已验证版本为准，具体行为及验收见 [需求](Product-Spec.md)。
 
-[CL-UI-03](tasks/school-removal-mwan3-naming.md)与 [CL-MWAN-06](tasks/mwan3-mappings.md)已在原设备部署：六个标签、最多 32 条配置映射、关联成员和实际状态，分别保存认证/联动配置。原生 ucode/ubus、真实 LuCI 保存、四路实际分流及恢复通过；实际环境仍只验证四路同名，动态六路及异名绑定为规则/夹具验证。未公开发布或推送；IPv4、mwan3-nft 和长期未知边界见 [组件限制](../packages/campuslink-mwan3/README.md)。
+[CL-UI-03](tasks/school-removal-mwan3-naming.md)与 [CL-MWAN-06](tasks/mwan3-mappings.md)已在原设备部署：六个标签、最多 32 条配置映射、关联成员和实际状态，分别保存认证/联动配置。原生 ucode/ubus、真实 LuCI 保存、四路实际分流及恢复通过；实际环境仍只验证四路同名，动态六路及异名绑定为规则/夹具验证。源码与 IPK 已包含于 v0.4.1 发布；IPv4、mwan3-nft 和长期未知边界见 [组件限制](../packages/campuslink-mwan3/README.md)。
 
 用户反馈的长页、重复提示、分散流程和字段平铺已在 [CL-UI-01](tasks/ui-simplification.md)处理；随后 [CL-UI-02](tasks/plugin-settings.md)将公共认证和调度移入插件设置，0.3.0 已在原设备更新和验收。独立问题与关闭证据分别见 [界面复核](reviews/ui-simplification.md)及[公共设置复核](reviews/plugin-settings.md)。
 
