@@ -62,4 +62,4 @@ Windows 客户端使用既有 WLAN（接口 8，192.168.0.139），显式绑定�
 - 路由器目录：`/root/campuslink-mwan3-20261008-1650`，包含前后配置、部署/回退脚本、运行状态和连接记录。手动回退：`sh /root/campuslink-mwan3-20261008-1650/rollback.sh --force`；只撤销本次 mwan3 和卸载选项，不回退后续校园网插件。
 - 设备与本机均保存 `campuslink-mwan3-recovery-20261008.tar.gz`，SHA256 一致：`c419da0ce401b593f87f1a943751b2e75eb8744b1adccb4fc9805afc01d7520b`。档案按私有配置保存，不提交。
 
-下一步：在实际使用中若出现认证离线而 mwan3 仍在线，先收集同一路两种状态与出口 HTTP 证据，再决定健康检查联动；代理配置与 VNT 仍按用户顺序后续处理。
+后续承接：用户在 D-20261008-10 批准认证健康联动，[MWAN-05](campuslink-mwan3.md)已停用四路 ping，改为独立服务消费 CampusLink 确定联网/未认证结果并控制原生成员。本文保留 MWAN-02 当时的 ping 与故障测试历史；当前配置、租约与恢复入口以 MWAN-05 为准。代理配置与 VNT 仍按用户顺序后续处理。

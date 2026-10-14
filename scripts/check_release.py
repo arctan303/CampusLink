@@ -12,6 +12,7 @@ import subprocess
 import sys
 import tarfile
 import zipfile
+from build_ipk import PACKAGES, version
 
 ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser()
@@ -32,7 +33,7 @@ def inspect(data,name):
     if data.startswith(marker) or b'\n'+marker in data or any(x in data for x in needles):raise SystemExit('sensitive value detected in '+name)
 for p in inputs:inspect(p.read_bytes(),p.relative_to(ROOT).as_posix())
 subprocess.run([sys.executable,str(ROOT/'scripts/build_ipk.py')],check=True,stdout=subprocess.DEVNULL)
-packages=[ROOT/'dist'/name for name in ['campuslink_0.3.0-1_all.ipk','luci-app-campuslink_0.3.0-1_all.ipk']]
+packages=[ROOT/'dist'/f'{name}_{version(name)}_all.ipk' for name in PACKAGES]
 before={p.name:p.read_bytes() for p in packages}
 subprocess.run([sys.executable,str(ROOT/'scripts/build_ipk.py')],check=True,stdout=subprocess.DEVNULL)
 for path in packages:
@@ -51,7 +52,7 @@ for path in packages:
                         if member.name.endswith('.json'):json.loads(data)
                         assert '/etc/campuslink/config.json' not in '/'+member.name
                     names.add(member.name.rstrip('/'))
-dest=ROOT/'dist/CampusLink-0.3.0-source.zip'
+dest=ROOT/f'dist/CampusLink-{version("luci-app-campuslink").rsplit("-",1)[0]}-source.zip'
 with zipfile.ZipFile(dest,'w',compression=zipfile.ZIP_DEFLATED) as z:
     for p in sorted(inputs):
         info=zipfile.ZipInfo('CampusLink/'+p.relative_to(ROOT).as_posix(),date_time=(2026,10,8,0,0,0))

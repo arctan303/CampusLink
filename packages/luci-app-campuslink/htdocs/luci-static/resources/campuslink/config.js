@@ -4,7 +4,7 @@
 function copy(value) { return JSON.parse(JSON.stringify(value)); }
 function defaults(connection, data) {
     var p = data.providers.find(function(x) { return x.id === connection.provider; });
-    var s = data.schools.find(function(x) { return x.id === connection.school; });
+    var s = (data.schools || []).find(function(x) { return x.id === connection.school; });
     var values = {};
     (p ? p.connection_fields : []).forEach(function(f) { if (f.default != null) values[f.id] = f.default; });
     Object.assign(values, s ? s.defaults : {});
@@ -68,26 +68,33 @@ function newLine(config, data, id) {
     var available = interfaces.filter(function(x) { return /^wan[0-9]*$/.test(x); });
     var iface = available.find(function(x) { return !config.connections.some(function(c) { return c.interface === x; }); }) || available[0] || interfaces[0] || 'wan';
     var provider = data.providers.find(function(x) { return x.id === 'drcom-http'; }) || data.providers[0];
-    var school = data.schools.find(function(x) { return x.provider === provider.id; });
     var line={id:id,label:'',interface:iface,account:config.accounts[0] ? config.accounts[0].id : '__new__',params:{},enabled:false,auto_login:false};
-    if(config.schema_version !== 2)Object.assign(line,{provider:provider.id,school:school ? school.id : '',check_interval:60,retry_interval:30,retry_max:600});
+    if(config.schema_version !== 2)Object.assign(line,{provider:provider.id,school:'',check_interval:60,retry_interval:30,retry_max:600});
     return line;
 }
-function settingsDraft(config,data) {
-    if(config.settings)return lineDraft(config.settings,data);
-    var first=config.connections[0],provider=data.providers.find(function(p){return p.id === (first ? first.provider : 'drcom-http');}) || data.providers[0];
-    var school=data.schools.find(function(s){return s.provider === provider.id;});
-    var draft={provider:provider.id,school:first ? first.school : school ? school.id : '',params:{},check_interval:first ? first.check_interval : 60,retry_interval:first ? first.retry_interval : 30,retry_max:first ? first.retry_max : 600};
-    provider.connection_fields.forEach(function(f){if(f.scope !== 'connection' && first && first.params[f.id]!=null)draft.params[f.id]=first.params[f.id];});
+function manualSettings(settings,data) {
+    var draft=copy(settings),values=params(draft,data),provider=data.providers.find(function(p){return p.id===draft.provider;});
+    // Materialize inherited public values before detaching the legacy preset.
+    draft.params={};
+    provider.connection_fields.forEach(function(f){if(f.scope!=='connection' && values[f.id]!=null)draft.params[f.id]=copy(values[f.id]);});
+    draft.school='';
     return lineDraft(draft,data);
+}
+function settingsDraft(config,data) {
+    if(config.settings)return manualSettings(config.settings,data);
+    var first=config.connections[0],provider=data.providers.find(function(p){return p.id === (first ? first.provider : 'drcom-http');}) || data.providers[0];
+    var draft={provider:provider.id,school:first ? first.school : '',params:{},check_interval:first ? first.check_interval : 60,retry_interval:first ? first.retry_interval : 30,retry_max:first ? first.retry_max : 600};
+    provider.connection_fields.forEach(function(f){if(f.scope !== 'connection' && first && first.params[f.id]!=null)draft.params[f.id]=first.params[f.id];});
+    return manualSettings(draft,data);
 }
 function saveSettings(config,draft,data) {
     var candidate=copy(config),provider=data.providers.find(function(p){return p.id===draft.provider;});
-    if(!provider)throw new Error('请选择认证系统');
-    candidate.schema_version=2;candidate.settings=copy(draft);
+    if(!provider)throw new Error('请选择登录系统');
+    candidate.schema_version=2;candidate.settings=manualSettings(draft,data);
     candidate.connections=config.connections.map(function(c){
+        var previousProvider=(config.settings || c).provider,values=previousProvider===provider.id ? params(c,data,config) : c.params;
         var local={};provider.connection_fields.forEach(function(f){
-            var value=c.params[f.id];
+            var value=values[f.id];
             if(f.scope!=='connection' || value==null)return;
             if(f.type==='enum' && !f.choices.some(function(choice){return choice.value===value;}))return;
             local[f.id]=copy(value);
@@ -96,4 +103,22 @@ function saveSettings(config,draft,data) {
     });
     return candidate;
 }
-return baseclass.extend({copy:copy,defaults:defaults,params:params,effective:effective,endpoints:endpoints,lineDraft:lineDraft,accountDraft:accountDraft,saveAccount:saveAccount,saveLine:saveLine,newLine:newLine,settingsDraft:settingsDraft,saveSettings:saveSettings});
+function mwanDraft(snapshot) { return copy(snapshot.config); }
+function saveMwan(draft,data) {
+    var candidate=copy(draft),sources=[],targets=[],interfaces=data.mwan3.interfaces || [];
+    if(candidate.mappings.length>32)throw new Error('最多配置 32 条联动映射');
+    candidate.mappings.forEach(function(row){
+        if(!row.source_interface || !row.mwan3_interface)throw new Error('请选择来源和目标接口');
+        if(sources.indexOf(row.source_interface)>=0)throw new Error('同一 CampusLink 接口只能配置一次');
+        if(targets.indexOf(row.mwan3_interface)>=0)throw new Error('同一 mwan3 接口只能由一条映射控制');
+        sources.push(row.source_interface);targets.push(row.mwan3_interface);
+        if(!candidate.enabled || !row.enabled)return;
+        if(!data.config.connections.some(function(c){return c.interface===row.source_interface;}))throw new Error('来源接口已不存在，请停用或删除此映射');
+        var target=interfaces.find(function(t){return t.name===row.mwan3_interface;});
+        if(!target || !target.enabled)throw new Error('目标 mwan3 接口不存在或未启用');
+        if(target.family!=='ipv4')throw new Error('当前联动仅支持 IPv4 接口');
+        if(!target.prepared || target.tracker_running)throw new Error('请先在 mwan3 关闭该接口的独立探测，并将初始状态设为离线');
+    });
+    return candidate;
+}
+return baseclass.extend({copy:copy,defaults:defaults,params:params,effective:effective,endpoints:endpoints,lineDraft:lineDraft,accountDraft:accountDraft,saveAccount:saveAccount,saveLine:saveLine,newLine:newLine,settingsDraft:settingsDraft,saveSettings:saveSettings,mwanDraft:mwanDraft,saveMwan:saveMwan});

@@ -1,0 +1,9 @@
+#!/bin/sh
+umask 077
+if [ "$1:$2" = call:query ]; then
+    mkdir -p /var/run/campuslink-diagnostics || exit 1
+    chmod 700 /var/run/campuslink-diagnostics
+    exec 9>/var/run/campuslink-diagnostics/lock
+    flock -n 9 || { printf '{"ok":false,"reason_code":"busy"}\n'; exit 0; }
+fi
+exec /usr/bin/ucode /usr/share/campuslink-diagnostics/main.uc "$@"

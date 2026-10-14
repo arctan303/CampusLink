@@ -1,7 +1,7 @@
 {
   "luci-app-campuslink": {
     "description":"CampusLink campus authentication",
-    "read":{"ubus":{"campuslink":["get"]}},
-    "write":{"ubus":{"campuslink":["save","action"]}}
+    "read":{"ubus":{"campuslink":["get"],"campuslink.mwan3":["get"],"campuslink.diagnostics":["get"]}},
+    "write":{"ubus":{"campuslink":["save","action"],"campuslink.mwan3":["save"],"campuslink.diagnostics":["query"]}}
   }
 }
