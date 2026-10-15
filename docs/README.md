@@ -18,7 +18,7 @@
 
 2026-10-15 [32 个仓库调研](providers/research-20261015.md)已完成，其中抽读 14 个仓库的 24 份认证源码。用户批准优先深澜变体、锐捷 RSA，由 [CL-PROVIDER-02](tasks/provider-variants-rsa.md) 承接；其它系统仍为建议。
 
-本地核心 0.4.0 / LuCI 0.4.2 包含实验性深澜 SRBX1（两种 HMAC、error/res、同源 AC ID 发现）和锐捷 ePortal（非 RSA / 显式 RSA、同源 pageInfo、单次/双重编码）。233 项 ucode 断言、21 个实际 worker 场景、独立 RSA 参考及 curl 回环通过，[独立聚焦复核通过](reviews/provider-variants-rsa.md)，试用发布待执行；[范围与反馈说明](providers/experimental.md)。未在其它学校、原固件原生或多 WAN 实测，也未部署原设备。前轮适配及复核见 [CL-PROVIDER-01](tasks/additional-providers.md)，不把旧审查扩展为当前 RSA 变更通过。
+本地核心 0.4.0 / LuCI 0.4.2 包含实验性深澜 SRBX1（两种 HMAC、error/res、同源 AC ID 发现）和锐捷 ePortal（非 RSA / 显式 RSA、同源 pageInfo、单次/双重编码）。233 项 ucode 断言、21 个实际 worker 场景、独立 RSA 参考及 curl 回环通过，[独立聚焦复核通过](reviews/provider-variants-rsa.md)，已正常推送 main 并发布 [v0.4.2 试用版](tasks/release-0.4.2.md)，五个公开附件下载/哈希回读通过；v0.4.1 保持稳定 latest；[范围与反馈说明](providers/experimental.md)。未在其它学校、原固件原生或多 WAN 实测，也未部署原设备。前轮适配及复核见 [CL-PROVIDER-01](tasks/additional-providers.md)，不把旧审查扩展为当前 RSA 变更通过。
 
 2026-10-14 本轮功能需求已确认、尚未开发：并发上限 4、账号级熔断及全部检查由 [CL-CORE-01](tasks/concurrency-account-fuse.md)承接；可选 [计划停网重试](tasks/scheduled-outage-retry.md)、[一键诊断与脱敏报告](tasks/doctor-report.md)、[未知资格有条件过期](tasks/mwan3-unknown-expiry.md)分别留任务。普通/高级设置分层，手机卡片/灯号等视觉优化后置，不增加全部登录。当前运行能力仍以上述已验证版本为准，具体行为及验收见 [需求](Product-Spec.md)。
 

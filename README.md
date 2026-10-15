@@ -2,13 +2,13 @@
 
 OpenWrt 校园网自动登录插件。通过 LuCI 管理账号和线路，让每个 WAN 使用指定账号登录，并定时检查联网状态。
 
-当前公开版本支持 **Dr.COM HTTP 门户**，可选安装 **mwan3 联动**组件。适合已经配置好单 WAN 或多 WAN 的路由器。
+当前稳定版本支持 **Dr.COM HTTP 门户**，可选安装 **mwan3 联动**组件。适合已经配置好单 WAN 或多 WAN 的路由器。
 
-v0.4.2 试用构建新增 **深澜 SRBX1 变体**、**锐捷 ePortal 非 RSA / RSA 零填充**实验性适配，离线验证和独立审查已通过，发布准备就绪；真实校园兼容性等待使用者反馈。[支持范围、源码参考与试用反馈](docs/providers/experimental.md)。
+[v0.4.2 试用版](https://github.com/arctan303/CampusLink/releases/tag/v0.4.2)新增 **深澜 SRBX1 变体**、**锐捷 ePortal 非 RSA / RSA 零填充**实验性适配，已发布并完成离线验证、独立审查及附件下载核验；真实校园兼容性等待使用者反馈。[支持范围、源码参考与试用反馈](docs/providers/experimental.md)。
 
 ## 下载与安装
 
-从 [GitHub Releases](https://github.com/arctan303/CampusLink/releases/latest) 下载 IPK；本次发布为 [v0.4.1](https://github.com/arctan303/CampusLink/releases/tag/v0.4.1)。
+从 [GitHub Releases](https://github.com/arctan303/CampusLink/releases/latest) 下载 IPK；稳定版为 [v0.4.1](https://github.com/arctan303/CampusLink/releases/tag/v0.4.1)。
 
 | 安装包 | 用途 | 是否必需 |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ v0.4.2 试用构建新增 **深澜 SRBX1 变体**、**锐捷 ePortal 非 RSA / R
 | `luci-app-campuslink_0.4.1-1_all.ipk` | LuCI 管理界面及公网 IP 查询 | 必需 |
 | `campuslink-mwan3_0.2.0-1_all.ipk` | 根据认证状态控制 mwan3 接口参与分流 | 可选 |
 
-三个组件独立版本号，按上表搭配安装即可。当前提供 **OPKG 的 IPK 包**，已在 Kwrt 25.12-SNAPSHOT 验证；APK 固件尚未验证。需要 ucode、支持 `ifhost!设备!IP` 的 curl 8.9+ 和 HTTPS 证书，依赖详情见[安装说明](docs/Install.md)。
+三个组件独立版本号，按上表搭配安装即可。v0.4.2 试用版使用 `campuslink_0.4.0-1_all.ipk` + `luci-app-campuslink_0.4.2-1_all.ipk`，可选联动仍为 0.2.0；安装命令替换对应包名。当前提供 **OPKG 的 IPK 包**，稳定版已在 Kwrt 25.12-SNAPSHOT 验证，v0.4.2 新增适配仅完成离线验证；APK 固件尚未验证。需要 ucode、支持 `ifhost!设备!IP` 的 curl 8.9+ 和 HTTPS 证书，依赖详情见[安装说明](docs/Install.md)。
 
 将前两个 IPK 上传到路由器 `/tmp/`，在路由器上执行：
 
