@@ -33,9 +33,9 @@ URL 仅 HTTP/HTTPS，不含 userinfo 和控制字符；每字段最多 1024 字�
 
 resolve_params 在启动、保存、启用校验和发起操作时执行；输入为提供商默认值 → 学校默认值 → 公共覆盖 → 线路级覆盖，两个覆盖的字段作用域互斥；context 提供 provider、school、overrides 以区分继承值与显式覆盖。插件设置独立校验时可能没有线路级必填值，解析器须允许其缺省，由实际线路校验补齐；输出再次进行字段/URL/未知字段校验。它只解析配置，不访问网络、不执行认证或修改存储。持久化只保存覆盖，不写入派生完整 URL。没有此入口的旧提供商保持原行为。
 
-ctx 包含 connection、account.values、params、route.device/ip、workdir、operation 和 allow_login。模块只通过 transport.http(ctx,url,params?) 发起绑定出口的 GET 请求，参数逐项编码。当前传输不包含 Cookie、POST 或通用 shell；新协议需要时先扩展传输并验证。
+ctx 包含 connection、account.values、params、route.device/ip、workdir、operation 和 allow_login。模块只通过 transport.http(ctx,url,params?,method?) 发起绑定出口的请求，method 缺省为 GET，仅支持 GET/POST，参数逐项编码。POST 使用 application/x-www-form-urlencoded，敏感参数仍留在私有 curl 配置而不进入 argv。当前传输不包含 Cookie 或通用 shell；其它能力需要时先扩展并验证。CL-PROVIDER-01 的离线 GET/POST 证据及目标固件缺口见[实验适配](../providers/experimental.md)。
 
-核心启动独立 worker，进程组包括 curl；禁用、配置变化、接口变化和服务停止会取消。模块不得修改 UCI、网络、防火墙或其他线路。新模块需在 daemon.uc 和 worker.uc 两处注册，不能通过网页上传代码。
+核心启动独立 worker，进程组包括 curl；禁用、配置变化、接口变化和服务停止会取消。模块不得修改 UCI、网络、防火墙或其他线路。新模块统一在 providers/registry.uc 显式注册，daemon 与 worker 共享同一注册表，不能通过网页上传代码。
 
 ## 结果与错误
 

@@ -10,7 +10,7 @@ class Node {
     setAttribute(k,v) { this.attrs[k]=v;this[k]=v; }
     all() { return [this,...this.children.flatMap(x=>x instanceof Node ? x.all() : [])]; }
     closest(tag) { for(let n=this;n;n=n.parent)if(n.tag===tag)return n;return null; }
-    invalid() { return this.tag==='input' && ((this.required && !this.value) || (this.type==='number' && (Number(this.value)<Number(this.min) || Number(this.value)>Number(this.max)))); }
+    invalid() { return this.tag==='input' && ((this.required && !this.value) || (this.type==='number' && this.value!=='' && (Number(this.value)<Number(this.min) || Number(this.value)>Number(this.max)))); }
     checkValidity() { return !this.all().some(x=>x.invalid()); }
     reportValidity() { return this.checkValidity(); }
     querySelectorAll(selector) { return selector===':invalid' ? this.all().filter(x=>x.invalid()) : []; }
@@ -22,7 +22,7 @@ function fixture(options={}) {
     let config={schema_version:2,generation:7,settings:{provider:'drcom-http',school:'local-campus',params:{},check_interval:60,retry_interval:30,retry_max:600},accounts:[{id:'a',label:'A',credential_type:'username_password',values:{username:'fake-user'},password_set:true}],connections:[]};
     if(options.connections)config.connections=clone(options.connections);
     let mwan=options.mwan?clone(options.mwan):null,mwanSaves=0,mwanFailure=false,diagnostics=options.diagnostics?clone(options.diagnostics):null,ipQueries=0,ipReply=null;
-    let snapshot=()=>({config:clone(config),providers:[provider],schools:[school],interfaces:[{interface:'wan1'}],status:[],events:[],mwan3:mwan?clone(mwan):null,diagnostics:diagnostics?clone(diagnostics):null});
+    let snapshot=()=>({config:clone(config),providers:options.providers || [provider],schools:[school],interfaces:[{interface:'wan1'}],status:[],events:[],mwan3:mwan?clone(mwan):null,diagnostics:diagnostics?clone(diagnostics):null});
     let delayedGet=null,dialog=null,pollCallback=null,saves=0;
     const rpc={declare(o){return (...args)=>{
         if(o.object==='campuslink.diagnostics'){
@@ -129,4 +129,22 @@ async function publicIP(){
     const failed=fixture({connections:[connection],diagnostics:done});await failed.page.queryPublicIP(connection);assert.ok(failed.dialog.all().some(n=>n.children.includes('8.8.8.8')));assert.equal(failed.saves,0,'query failure leaves authentication configuration untouched');
     const absent=fixture({connections:[connection]});assert.equal(absent.button('查询出口 IP').disabled,true,'missing component does not break overview');
 }
-(async()=>{let failed=false;for(const test of [defaultSave,manualUrls,delayedPoll,hiddenInvalid,conflictDraft,sharedSettings,schoollessSettings,mwanMappings,mwanUnavailable,publicIP]){try{await test();console.log('PASS:',test.name);}catch(e){failed=true;console.error('FAIL:',test.name,e.stack);}}if(failed)process.exitCode=1;})();
+async function experimentalSettings(){
+    const added=['srun-srbx1','ruijie-eportal'].map(id=>JSON.parse(fs.readFileSync('packages/campuslink/files/usr/share/campuslink/providers/'+id+'.json')));
+    for(const p of added){
+        const f=fixture({providers:[provider,...added]});f.page.showTab('settings');
+        assert.ok(f.input('登录系统').children.some(n=>n.children.includes(p.label)));
+        f.change('登录系统',p.id);
+        const server=p.connection_fields.find(x=>x.id==='server_url');assert.equal(f.input(server.label).required,true);
+        f.change(server.label,'http://portal.example:8080');
+        if(p.id==='srun-srbx1'){f.change('AC ID（留空自动获取）',12);f.change('AC ID（留空自动获取）','');}
+        if(p.id==='ruijie-eportal'){f.change('服务 / 运营商（没有则留空）','校园网');f.change('密码模式','rsa');}
+        assert.throws(()=>f.input('终端方式'));assert.throws(()=>f.input('自定义登录地址'));
+        f.save();await flush();await flush();assert.equal(f.saves,1);
+        assert.equal(f.snapshot().config.settings.provider,p.id);
+        if(p.id==='srun-srbx1')assert.equal(f.snapshot().config.settings.params.ac_id,'','empty AC ID stays empty');
+        if(p.id==='ruijie-eportal')assert.equal(f.snapshot().config.settings.params.password_mode,'rsa');
+        f.page.editLine();assert.throws(()=>f.input('终端方式'));
+    }
+}
+(async()=>{let failed=false;for(const test of [defaultSave,manualUrls,delayedPoll,hiddenInvalid,conflictDraft,sharedSettings,schoollessSettings,mwanMappings,mwanUnavailable,publicIP,experimentalSettings]){try{await test();console.log('PASS:',test.name);}catch(e){failed=true;console.error('FAIL:',test.name,e.stack);}}if(failed)process.exitCode=1;})();

@@ -1,0 +1,591 @@
+{
+  "checked_on": "2026-10-15",
+  "repository_count": 32,
+  "source_read_repository_count": 14,
+  "source_file_count": 24,
+  "real_campus_testing": false,
+  "repositories": [
+    {
+      "repository": "vidar-team/srun-login",
+      "commit": "5a453c5343c0cade8633b0c89607c2d2daa478b8",
+      "default_branch": "master",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "深澜",
+      "scene": "杭州电子科技大学",
+      "evidence": "source_read",
+      "assessment": "SRBX1 挑战与校验和交叉参考",
+      "source_files": [
+        {
+          "path": "pkg/srun/client.go",
+          "sha256": "efe17b38671741ebe93c0f255b4c81549f1a52a3c927f64bcdfcbc6014128635",
+          "lines": 158
+        },
+        {
+          "path": "pkg/srun/utils.go",
+          "sha256": "5efb3411122d63cb10af01a8ec19cb051b0b8a2a12331b6c01ab8eed6732d6e0",
+          "lines": 67
+        }
+      ]
+    },
+    {
+      "repository": "Sleepstars/SZU-login",
+      "commit": "22ac4c924ef6b29db1426f752155b9776d36658a",
+      "default_branch": "master",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": "vidar-team/srun-login",
+      "family": "深澜",
+      "scene": "深圳大学教学/宿舍双区域",
+      "evidence": "source_read",
+      "assessment": "同校协议不同；宿舍 eportal 路径不能据名称归为锐捷",
+      "source_files": [
+        {
+          "path": "pkg/srun/client.go",
+          "sha256": "de1615e391ec93f521584b70f49eb91546348f1f2cd12020fca6a95429d08d7f",
+          "lines": 216
+        },
+        {
+          "path": "pkg/srun/utils.go",
+          "sha256": "b7543e5af537f97ea497adf593860a4a7ebd5881f85fe5ae63b621dd3a63d2d5",
+          "lines": 66
+        }
+      ]
+    },
+    {
+      "repository": "Georgeupup/szu-network-guardian",
+      "commit": "44554ac5396abd977b3563f64ae3dc633d5cd988",
+      "default_branch": "main",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "深澜",
+      "scene": "深圳大学",
+      "evidence": "source_read",
+      "assessment": "error/res 兼容、发现 AC ID、两区域流程",
+      "source_files": [
+        {
+          "path": "szu_guardian/srun.py",
+          "sha256": "0dd55d654547515f19b42f7ca9b0bef0190c7fd4217228150a78340e72bacb00",
+          "lines": 287
+        },
+        {
+          "path": "szu_guardian/network.py",
+          "sha256": "e3dfe2c3f098f01722585afb0b7f92d69d1dee3b38bc0606bc738a2433db624f",
+          "lines": 283
+        }
+      ]
+    },
+    {
+      "repository": "HankLiu2020/iHDU-AutoLogin",
+      "commit": "c8d2ce848678987beeecf2c781b2e34517b6cc98",
+      "default_branch": "main",
+      "license_identifier": null,
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": "JBNRZ/srun-login",
+      "family": "深澜",
+      "scene": "杭州电子科技大学",
+      "evidence": "source_read",
+      "assessment": "双入口、os/name/double_stack；源码有密码日志，不复用",
+      "source_files": [
+        {
+          "path": "login.py",
+          "sha256": "1aa9cb98589f685773f5bc763a86e9396bcd7d4204cf26999fd6cf6181e37a06",
+          "lines": 241
+        }
+      ]
+    },
+    {
+      "repository": "coffeehat/BIT-srun-login-script",
+      "commit": "56293532c32ba533bdcdba9a73e526cfba52804b",
+      "default_branch": "master",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "深澜",
+      "scene": "北京理工大学",
+      "evidence": "readme_and_metadata",
+      "assessment": "SRBX1 老参考；作者说明毕业后难更新",
+      "source_files": []
+    },
+    {
+      "repository": "Mmx233/BitSrunLoginGo",
+      "commit": "a744f312b3835f329eb98e45c8d19bc2a5b7d4c0",
+      "default_branch": "main",
+      "license_identifier": "AGPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "深澜",
+      "scene": "北理来源、OpenWrt",
+      "evidence": "readme_and_metadata",
+      "assessment": "已有独立 Go 客户端；先看参数差异",
+      "source_files": []
+    },
+    {
+      "repository": "BUAASubnet/srun-login-py",
+      "commit": "8bfd3f23e899fa874d286f6509df659eb99f7480",
+      "default_branch": "main",
+      "license_identifier": "Apache-2.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "深澜",
+      "scene": "北京航空航天大学新版",
+      "evidence": "source_read",
+      "assessment": "meta refresh 发现 AC ID；挑战解析较宽",
+      "source_files": [
+        {
+          "path": "buaa-wifi.py",
+          "sha256": "b151e26f9a4014b27a3af5bb457f6d0f28fa4b882fa06b60383fe32dd3d1c7fc",
+          "lines": 340
+        }
+      ]
+    },
+    {
+      "repository": "planetarian10/srun",
+      "commit": "f31949c052241f06a68ed9abef557ec391bc4642",
+      "default_branch": "master",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "深澜",
+      "scene": "北航专用目录/通用脚本",
+      "evidence": "readme_and_metadata",
+      "assessment": "协议脚本和浏览器点击两种方案",
+      "source_files": []
+    },
+    {
+      "repository": "bigbugcc/SrunLogin",
+      "commit": "5a6966c8af101f5b1581be7bbb7ef165128ddb2a",
+      "default_branch": "main",
+      "license_identifier": "AGPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "深澜",
+      "scene": "云南师范大学",
+      "evidence": "readme_and_metadata",
+      "assessment": "来自北理 Go 链；不能算全新协议",
+      "source_files": []
+    },
+    {
+      "repository": "NanCunChild/xdsrun-login",
+      "commit": "421a24cf6a045eb5a164964154753d6c3c0bdd36",
+      "default_branch": "main",
+      "license_identifier": "GPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "深澜",
+      "scene": "西安电子科技大学",
+      "evidence": "readme_and_metadata",
+      "assessment": "上游说明强调 xencode 变体，需向量交叉核对",
+      "source_files": []
+    },
+    {
+      "repository": "Cra1gTucker/hust-login",
+      "commit": "b3290dc6efacf8f44831592031d45137e3997ead",
+      "default_branch": "master",
+      "license_identifier": "GPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "网页扩展",
+      "scene": "华中科技大学 HUST_WIRELESS",
+      "evidence": "source_read",
+      "assessment": "RSA 零填充/端序与双重编码，适合补 RSA 变体",
+      "source_files": [
+        {
+          "path": "hust_login.py",
+          "sha256": "0e3a3e09df6f00c3a1d7899bbaabe381a8b17260f3e349fd0b1881d793458158",
+          "lines": 108
+        },
+        {
+          "path": "hust_login_nocrypt.py",
+          "sha256": "4483a1f05abc83b2f9cf803baf5290cb50d567c0c17e313bccb5fb47ab74883d",
+          "lines": 39
+        }
+      ]
+    },
+    {
+      "repository": "universetraveller/captive-portal-auto-login",
+      "commit": "49295dde2ffc49e639c8fbe1e99b38829a6c4f18",
+      "default_branch": "main",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "网页扩展",
+      "scene": "武汉大学 RG-SMP",
+      "evidence": "source_read",
+      "assessment": "多接口表单模板；加密密码来自配置，非完整 RSA 生成器",
+      "source_files": [
+        {
+          "path": "captive-portal-auto-login/login.py",
+          "sha256": "73a8376d304dcca765e665dade7577ada8f81fc1c43a2d71f24e94eb4f13a12a",
+          "lines": 549
+        },
+        {
+          "path": "captive-portal-auto-login/crypt_utils.py",
+          "sha256": "e190c13370308a76d524b13ca4ba2a88178044c1fee3a51054f8d8e13e31da4f",
+          "lines": 58
+        }
+      ]
+    },
+    {
+      "repository": "Youwenqwq/ysu-sdk",
+      "commit": "ee07091873bad400a3de96b72cb4126400446318",
+      "default_branch": "main",
+      "license_identifier": "GPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "网页扩展",
+      "scene": "燕山大学新版 ePortal",
+      "evidence": "source_read",
+      "assessment": "portal-main/sessionId、AES-ECB、验证码与 Cookie",
+      "source_files": [
+        {
+          "path": "ysu_sdk/eportal/client.py",
+          "sha256": "7bd5174660463450cbc0006294327de57f7434acbef97d15046f2a09d69921e2",
+          "lines": 548
+        },
+        {
+          "path": "ysu_sdk/eportal/_crypto.py",
+          "sha256": "d16c7e1c39e79f85cdeb015d222e1fbf08be62904e31ba432744a4d18b1243d7",
+          "lines": 48
+        },
+        {
+          "path": "ysu_sdk/eportal/_parser.py",
+          "sha256": "d3e540078d7e220ea9aa5d55c36b923337accdd16c182e174ded356f5589426d",
+          "lines": 70
+        }
+      ]
+    },
+    {
+      "repository": "Redlnn/Ruijie-ePorta-Tool",
+      "commit": "5ea93dd657415a77c07074fea724b9418d63b234",
+      "default_branch": "master",
+      "license_identifier": "AGPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": true,
+      "fork_parent": null,
+      "family": "网页扩展",
+      "scene": "锐捷 ePortal",
+      "evidence": "source_read",
+      "assessment": "依赖预填 login_data；验证码仍有限制",
+      "source_files": [
+        {
+          "path": "src/__main__.py",
+          "sha256": "6eba18a459d666ee3dade1478f5189825b284b65ee4c138ea71a93b694e4cee6",
+          "lines": 204
+        }
+      ]
+    },
+    {
+      "repository": "SamizuHM/miwifi-whunet-login",
+      "commit": "0ee6758d10ea16307c6057b7d328308610374b6f",
+      "default_branch": "master",
+      "license_identifier": null,
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "网页扩展",
+      "scene": "武汉大学、小米路由器",
+      "evidence": "readme_and_metadata",
+      "assessment": "重放已抓取加密表单，未动态生成 RSA",
+      "source_files": []
+    },
+    {
+      "repository": "BadGhost520/ESurfingClient-CVersion",
+      "commit": "cbc1f8ae2edf60abf66fe991af06698695356c0d",
+      "default_branch": "master",
+      "license_identifier": "Apache-2.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "天翼",
+      "scene": "广东天翼校园 CCTP",
+      "evidence": "source_read",
+      "assessment": "会话→ticket→登录；已有原生 OpenWrt 工程",
+      "source_files": [
+        {
+          "path": "esurfingclient/app/src/clients/dialer/DialerAuth.c",
+          "sha256": "165e6cdc277e43a087e88f9434c5cfd43b70cbc02cbf518f472b48e008eb8dbb",
+          "lines": 321
+        },
+        {
+          "path": "esurfingclient/app/src/clients/dialer/DialerClient.c",
+          "sha256": "8acc1b6498135eddef263231f67b5cc04116a264fb26ea561032480282fd9c1e",
+          "lines": 482
+        },
+        {
+          "path": "esurfingclient/app/src/clients/dialer/DialerLocation.c",
+          "sha256": "57ee8783df721c0ebceaf810eebae9ce12f556ea13506b96604b40f56fa09b7c",
+          "lines": 126
+        }
+      ]
+    },
+    {
+      "repository": "LazyBonesLZY/Yilian",
+      "commit": "c733574598fd62b7a9eec37007bbc8f0ada31afe",
+      "default_branch": "main",
+      "license_identifier": "Apache-2.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "天翼",
+      "scene": "天翼 CCTP Android",
+      "evidence": "source_read",
+      "assessment": "来自前项；动态 Algo-ID 与心跳状态机参考",
+      "source_files": [
+        {
+          "path": "app/src/main/java/com/esurfing/client/core/DialerEngine.kt",
+          "sha256": "da12bbc3249c003732a1230a32c866b7331185bf1d734e10b3c2e39089d46be2",
+          "lines": 971
+        }
+      ]
+    },
+    {
+      "repository": "MYHealer/esp32_esurfing",
+      "commit": "1bf4b465772237425b0ad9f4d3a42286c8cb77b9",
+      "default_branch": "master",
+      "license_identifier": null,
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "天翼",
+      "scene": "ESP32 天翼认证移植",
+      "evidence": "readme_and_metadata",
+      "assessment": "同一 C 版谱系；不能按新协议计数",
+      "source_files": []
+    },
+    {
+      "repository": "Pandaft/ESurfingPy-CLI",
+      "commit": "5c79e67815e10235e17beccf4618f178391bac56",
+      "default_branch": "main",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "天翼",
+      "scene": "广东天翼旧网页认证",
+      "evidence": "readme_and_metadata",
+      "assessment": "作者说明部分学校网页通道关闭；验证码/模型较重",
+      "source_files": []
+    },
+    {
+      "repository": "Pandaft/go-esurfing",
+      "commit": "1e5f80e054370c4decf8a0f30ad399b5bb08cfa1",
+      "default_branch": "main",
+      "license_identifier": "GPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": true,
+      "fork_parent": null,
+      "family": "天翼",
+      "scene": "广东天翼旧客户端协议",
+      "evidence": "readme_and_metadata",
+      "assessment": "作者说明 2024-03 接口变更后失效、停止维护",
+      "source_files": []
+    },
+    {
+      "repository": "drcoms/drcom-generic",
+      "commit": "698b3f50321d3dbc2abffd6692da79afc44ce47f",
+      "default_branch": "master",
+      "license_identifier": "AGPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "原生协议",
+      "scene": "Dr.COM d/p/x 客户端",
+      "evidence": "readme_and_metadata",
+      "assessment": "UDP/PPPoE/802.1X 资料，与现有 HTTP 模块不同",
+      "source_files": []
+    },
+    {
+      "repository": "mchome/dogcom",
+      "commit": "6f5f55062e436928e27a49fb172ce1a3a6a76496",
+      "default_branch": "master",
+      "license_identifier": "AGPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "原生协议",
+      "scene": "Dr.COM 原生 C 客户端",
+      "evidence": "readme_and_metadata",
+      "assessment": "原生依赖/心跳，不是追加 HTTP 参数",
+      "source_files": []
+    },
+    {
+      "repository": "updateing/minieap",
+      "commit": "983fd4a5851d4a344fab92666c5cdb83f26b2294",
+      "default_branch": "master",
+      "license_identifier": "GPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "原生协议",
+      "scene": "EAP-MD5 / 锐捷 v3-v4",
+      "evidence": "readme_and_metadata",
+      "assessment": "二层收发，需新后端生命周期",
+      "source_files": []
+    },
+    {
+      "repository": "humiaozuzu/YaH3C",
+      "commit": "c0d873c6ca998aa6d04fa89d3034c4d18981d26b",
+      "default_branch": "master",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": true,
+      "fork_parent": null,
+      "family": "原生协议",
+      "scene": "中山大学东校区 H3C",
+      "evidence": "readme_and_metadata",
+      "assessment": "历史客户端；802.1X 方向，不等于 H3C 网页",
+      "source_files": []
+    },
+    {
+      "repository": "Howard20181/Shell-H3C-Portal",
+      "commit": "9c1f645d8dbf0dbf35fd8d0c32e5c6c926b36764",
+      "default_branch": "Openwrt",
+      "license_identifier": "GPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": true,
+      "fork_parent": null,
+      "family": "网页扩展",
+      "scene": "H3C iMC Web Portal",
+      "evidence": "source_read",
+      "assessment": "pws?t=li + Base64 + Cookie + JSP 心跳",
+      "source_files": [
+        {
+          "path": "autoauth.sh",
+          "sha256": "1459d8918053e4fc7c72120451f8f61c956bd21c31d19af47e4f617aa4faae89",
+          "lines": 265
+        }
+      ]
+    },
+    {
+      "repository": "bakabaka9405/minieap-sysu-east-openwrt",
+      "commit": "9534ecfd915d5f6d6f7373786663e694b6accf45",
+      "default_branch": "master",
+      "license_identifier": "GPL-3.0",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": "updateing/minieap",
+      "family": "原生协议",
+      "scene": "中山大学东校园 OpenWrt",
+      "evidence": "readme_and_metadata",
+      "assessment": "服务器发起身份心跳的学校变体；非新认证算法",
+      "source_files": []
+    },
+    {
+      "repository": "demo133/campusnet",
+      "commit": "944c9d5d512a9e03d07608418b75963fc209b6a1",
+      "default_branch": "main",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "通用工具",
+      "scene": "多门户 CLI / OpenWrt 脚本",
+      "evidence": "readme_and_metadata",
+      "assessment": "说明中部分提供商待验证；不能继承其兼容承诺",
+      "source_files": []
+    },
+    {
+      "repository": "Misyra/Campus-Auth",
+      "commit": "f8a5de940557774c324156e1048d2eeac682dfd0",
+      "default_branch": "main",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub API",
+      "archived": false,
+      "fork_parent": null,
+      "family": "通用工具",
+      "scene": "Playwright 桌面自动化",
+      "evidence": "readme_and_metadata",
+      "assessment": "README 已迁移到 Rust 版，浏览器方案不直接进 ucode",
+      "source_files": []
+    },
+    {
+      "repository": "heragehome/haust-auto-login",
+      "commit": "4606385dd7c9e4e586a613f49b3b4d366047221d",
+      "default_branch": "main",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub HTML",
+      "archived": null,
+      "fork_parent": null,
+      "family": "网页扩展",
+      "scene": "河南科技大学、大学掌 autewifi",
+      "evidence": "source_read",
+      "assessment": "POST JSON/CSRF；上游指出 token 绑定 TCP 连接",
+      "source_files": [
+        {
+          "path": "CampusAuth.ps1",
+          "sha256": "053b55c247cd2c3b68d0552cbc74ffa127e61822d2e8247d4bb368fdea3bcf61",
+          "lines": 770
+        }
+      ]
+    },
+    {
+      "repository": "WanchengWildMan/i-NUIST-login",
+      "commit": "e9ee2977527d71b575c56020479a85081045116f",
+      "default_branch": "main",
+      "license_identifier": null,
+      "metadata_source": "GitHub HTML",
+      "archived": null,
+      "fork_parent": null,
+      "family": "网页扩展",
+      "scene": "南京信息工程大学",
+      "evidence": "readme_and_metadata",
+      "assessment": "README 中旧 Base64 表单/新 raw JSON 两代，待交叉确认",
+      "source_files": []
+    },
+    {
+      "repository": "buerka/nuist-srun-openwrt",
+      "commit": "0503e71c814531f7937e5fb6a625d144606afdb9",
+      "default_branch": "main",
+      "license_identifier": "MIT",
+      "metadata_source": "GitHub HTML",
+      "archived": null,
+      "fork_parent": null,
+      "family": "深澜",
+      "scene": "南京信息工程大学",
+      "evidence": "source_read",
+      "assessment": "Lua+curl；状态/IP/挑战来源与绑定区别",
+      "source_files": [
+        {
+          "path": "src/srun.lua",
+          "sha256": "3a667ec35d2d9488f27215d6457adb5ce3b0ff9aa19029cb564f8532f08abbd8",
+          "lines": 129
+        },
+        {
+          "path": "src/srun_crypto.lua",
+          "sha256": "c1dd87389023160978321ebd10126212325c3943b2db41cde8ba97e1c7897c05",
+          "lines": 146
+        }
+      ]
+    },
+    {
+      "repository": "Misyra/Campus-Auth-rs",
+      "commit": "72efcd133ee0e8a86a21d23073bbb562791b0883",
+      "default_branch": "master",
+      "license_identifier": "AGPL-3.0",
+      "metadata_source": "GitHub HTML",
+      "archived": null,
+      "fork_parent": null,
+      "family": "通用工具",
+      "scene": "Rust + HTTP / Playwright",
+      "evidence": "readme_and_metadata",
+      "assessment": "协议发现与工具流程参考，浏览器依赖需另评估",
+      "source_files": []
+    }
+  ]
+}

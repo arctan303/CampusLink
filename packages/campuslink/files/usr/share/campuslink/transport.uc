@@ -2,7 +2,7 @@ import * as fs from 'fs';
 
 function quote(s) { return '"' + replace(replace(replace(replace(s, /\\/g, '\\\\'), /"/g, '\\"'), /\r/g, '\\r'), /\n/g, '\\n') + '"'; }
 
-export function http(ctx, url, params) {
+export function request_options(ctx, url, params, method) {
     let dir = ctx.workdir, cfg = dir + '/curl.conf', body = dir + '/body', headers = dir + '/headers';
     let options = [
         'url = ' + quote(url), 'interface = ' + quote('ifhost!' + ctx.route.device + '!' + ctx.route.ip),
@@ -10,13 +10,25 @@ export function http(ctx, url, params) {
         'max-filesize = 65536', 'proto = "=http,https"', 'max-redirs = 0', 'output = ' + quote(body),
         'dump-header = ' + quote(headers), 'write-out = "%{http_code}"'
     ];
+    method = method || 'GET';
+    if (method != 'GET' && method != 'POST') die('unsupported_http_method');
+    if (method == 'POST') push(options, 'request = "POST"', 'header = "Content-Type: application/x-www-form-urlencoded"');
     if (params) {
-        push(options, 'get');
-        for (let k, v in params) push(options, 'data-urlencode = ' + quote(k + '=' + v));
+        if (method == 'GET') push(options, 'get');
+        for (let k, v in params) {
+            if (match(k, /[[:cntrl:]]/) || !match(k, /^[a-zA-Z][a-zA-Z0-9_]*$/)) die('invalid_http_parameter');
+            push(options, 'data-urlencode = ' + quote(k + '=' + v));
+        }
     }
+    return join('\n', options) + '\n';
+};
+
+export function http(ctx, url, params, method) {
+    let dir = ctx.workdir, cfg = dir + '/curl.conf', body = dir + '/body', headers = dir + '/headers';
+    let options = request_options(ctx, url, params, method);
     let f = fs.open(cfg, 'w', 0600);
     if (!f) return {ok:false, code:0, reason:'local_io_failed', body:'', headers:''};
-    f.write(join('\n', options) + '\n'); f.close();
+    f.write(options); f.close();
     // Older target ucode supports only string popen. The command contains only
     // a generated private path; all user values remain in the curl config.
     if (!match(cfg, /^\/[a-zA-Z0-9_\/.-]+$/)) { fs.unlink(cfg);return {ok:false,code:0,reason:'local_io_failed',body:'',headers:''}; }

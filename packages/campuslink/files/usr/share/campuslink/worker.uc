@@ -1,10 +1,9 @@
 import * as fs from 'fs';
-import * as drcom from './providers/drcom-http.uc';
-import * as mock from './providers/mock.uc';
+import { handlers } from './providers/registry.uc';
 import {read_json,write_json,result,validate_result} from './common.uc';
 
 let ctx=read_json(ARGV[0]), operation=ctx.operation;
-let provider=ctx.connection.provider=='mock'?mock:drcom;
+let provider=handlers[ctx.connection.provider];
 function progress(phase){write_json(ctx.workdir+'/progress.json',{phase});}
 function execute(){
     if(operation=='logout')return validate_result(provider.logout(ctx),'logout',ctx.account.values);

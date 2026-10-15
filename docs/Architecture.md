@@ -5,7 +5,7 @@
 ## 目标与边界
 
 CampusLink 面向使用 OpenWrt 的校园网用户：保存账号，为已有 WAN 选择登录系统和认证服务器，按用户设置的周期检查状态，并在确认未认证时重新登录。CL-UI-03 已在当前工作树移除学校入口；后端预设读取仅为旧配置兼容保留，这项增量已随 LuCI 0.4.0 在原设备部署。
-首个适配器为现有脚本对应的 Dr.COM HTTP 门户；Dr.COM 的其他协议实现不能仅因厂商名称相同就复用它。
+首个适配器为现有脚本对应的 Dr.COM HTTP 门户；Dr.COM 的其他协议实现不能仅因厂商名称相同就复用它。本地核心 0.4.0 新增实验性深澜 SRBX1 与锐捷 ePortal 非 RSA / RSA 零填充（免验证码）模块，统一由 providers/registry.uc 注册；参考协议、支持变体和离线验证边界见[实验适配](providers/experimental.md)。原设备仍运行已验证的核心 0.3.0。
 当前 Cudy TR3000 四路虚拟 WAN 是试用场景，首版上限为 64 个账号、32 条线路和 256 KiB 配置。创建 macvlan、修改路由表、配置 mwan3 和代理由设备部署任务负责；本插件消费已有 netifd 接口。
 
 可选独立 addon `campuslink-mwan3` 的功能名为“mwan3 联动”。设备已从 [MWAN-05](tasks/campuslink-mwan3.md) 固定四路版本升级为 addon 0.2.0；[CL-MWAN-06](tasks/mwan3-mappings.md) 在当前工作树新增独立配置、get/save RPC 与最多 32 条来源接口 → mwan3 接口映射。认证核心/凭据/公共 API 不改，LuCI ACL 只增加已有管理员对 addon 的 get/save。addon 读取原 public status 和已有 mwan3 配置，依据两端设备/IP、完成时间和物理事件控制原生 connected/disconnected；不写 mwan3 UCI 或全局重载。每对映射的激活代号持久化在 addon 配置中，未改变的映射沿用证据，新激活的映射使旧资格失效。运行缓存及事件只写 /var/run。IPv4、mwan3-nft 及未知/失联无年龄上限的边界保留，停用保留成员状态，详细说明见 [addon](../packages/campuslink-mwan3/README.md)。此增量的原生运行与实际分流已在原设备验证，见 [0.4.0](testing/0.4.0.md)。

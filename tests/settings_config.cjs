@@ -45,4 +45,17 @@ assert.equal(partialSaved.settings.params.auth_url,partialOverride.settings.para
 const noPreset=model.settingsDraft({schema_version:1,connections:[]},{...data,schools:undefined});
 assert.equal(noPreset.school,'');assert.equal(noPreset.params.auth_server,undefined,'new config must not inherit a campus server');
 assert.equal(model.newLine(old,data,'new-legacy').school,'');
-console.log('PASS: shared settings, immutable drafts, provider switch, schema1/2 preset detachment, inherited server/probe/terminal, custom URL and new config');
+for(const id of ['srun-srbx1','ruijie-eportal']) {
+ const added=JSON.parse(fs.readFileSync('packages/campuslink/files/usr/share/campuslink/providers/'+id+'.json'));
+ const expanded={...data,providers:[provider,mock,added]};
+ const params={server_url:'http://portal.example:8080'};if(id==='srun-srbx1')params.ac_id=12;
+ const next=model.saveSettings(saved,{...model.copy(saved.settings),provider:id,school:'',params},expanded);
+ assert.deepEqual(next.accounts,saved.accounts,'experimental provider switch retains passwords');
+ assert.deepEqual(next.connections.map(c=>c.params),[{},{}],'Dr.COM terminal fields do not leak into another protocol');
+ assert.equal(model.params(next.connections[0],expanded,next).server_url,params.server_url);
+ assert.equal(model.newLine(next,expanded,'new-exp').auto_login,false);
+ assert.ok(added.label.includes('实验性'));
+ const restored=model.saveSettings(next,saved.settings,expanded);
+ assert.equal(restored.settings.provider,'drcom-http');assert.deepEqual(restored.accounts,saved.accounts);
+}
+console.log('PASS: shared settings, immutable drafts, provider switch (including experimental providers), schema1/2 preset detachment, inherited values, custom URL and new config');

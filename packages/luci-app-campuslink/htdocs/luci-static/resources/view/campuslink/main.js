@@ -138,7 +138,7 @@ return view.extend({
     },
     input:function(value,change,options) {
         options = options || {};
-        var attributes = Object.assign({class:'cbi-input-text',type:'text',value:value == null ? '' : String(value),input:function(ev) { change(options.type === 'number' ? Number(ev.target.value) : ev.target.value); }},options);
+        var attributes = Object.assign({class:'cbi-input-text',type:'text',value:value == null ? '' : String(value),input:function(ev) { change(options.type === 'number' && ev.target.value !== '' ? Number(ev.target.value) : ev.target.value); }},options);
         // LuCI E serializes attributes: required="false" is still required in HTML.
         Object.keys(attributes).forEach(function(key) { if (attributes[key] === false || attributes[key] == null) delete attributes[key]; });
         return E('input',attributes);

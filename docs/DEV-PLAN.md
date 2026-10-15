@@ -1,5 +1,7 @@
 # 当前交付计划
 
+当前短任务：[CL-PROVIDER-02](tasks/provider-variants-rsa.md) 承接实验性深澜 SRBX1、锐捷 ePortal，完善深澜变体并增加显式 RSA 模式。核心 0.4.0 / LuCI 0.4.2 离线验证和独立审查通过，发布待执行，用户已授权提交推送及 v0.4.2 试用发布；不部署原设备。前轮证据见 [CL-PROVIDER-01](tasks/additional-providers.md)。
+
 1. 固件升级：完成安装和回读，镜像与迁移经过独立审查。原始证据见 `docs/README.md` 的本机目录；未再次刷机。
 2. 四个虚拟 WAN：完成部署与验证，见 [任务](tasks/virtual-wans.md)。四路 DHCP 地址不同、独立源路由及门户访问通过；原 WAN 和 WLAN 客户端 HTTPS 仍正常。
 3. 校园网登录软件包：用户已授权完整开发/设备测试并提供本地测试账号。[框架](Architecture.md)承接为 [CL-01 核心与 LuCI](dev-plan/phase-01.md) → [CL-02 本校适配/退出](dev-plan/phase-02.md) → [CL-03 打包与设备测试](dev-plan/phase-03.md)。实现/设备验证完成，核心有条件通过；最终交付独立复核通过。本校退出保留未支持限制，不修改既有网络。

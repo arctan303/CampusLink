@@ -1,0 +1,12 @@
+{
+  "schema_version":1,"id":"ruijie-eportal","label":"锐捷 ePortal（实验性）","credential_type":"username_password",
+  "capabilities":{"check":true,"login":true,"logout":false,"heartbeat":false},
+  "account_fields":[{"id":"username","label":"校园网账号","type":"string","required":true},{"id":"password","label":"校园网密码","type":"secret","required":true}],
+  "connection_fields":[
+    {"id":"server_url","label":"认证服务器 URL（含 http:// 或 https:// 与端口）","type":"url","required":true},
+    {"id":"service","label":"服务 / 运营商（没有则留空）","type":"string","required":false},
+    {"id":"password_mode","label":"密码模式","type":"enum","required":true,"default":"plain","choices":[{"value":"plain","label":"非 RSA"},{"value":"rsa","label":"RSA 零填充（免验证码）"}]},
+    {"id":"form_encoding","label":"表单编码","type":"enum","required":true,"default":"auto","advanced":true,"choices":[{"value":"auto","label":"按模式（非 RSA 一次 / RSA 双重）"},{"value":"single","label":"一次编码"},{"value":"double","label":"双重编码"}]},
+    {"id":"probe_url","label":"联网探测地址","type":"url","required":true,"default":"http://connectivitycheck.platform.hicloud.com/generate_204","advanced":true}
+  ]
+}

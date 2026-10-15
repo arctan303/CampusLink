@@ -2,6 +2,8 @@
 
 本指南对应核心 **0.3.0**、LuCI **0.4.1**、可选 mwan3 联动 **0.2.0**。各组件独立版本号。
 
+实验性 v0.4.2 构建使用核心 **0.4.0** / LuCI **0.4.2** / 联动 **0.2.0**。深澜 SRBX1 与锐捷 ePortal（含 RSA）的配置、支持变体与校园验证缺口见[试用说明](providers/experimental.md)。安装步骤相同，替换前两个包的版本即可；先备份配置，切换系统后先单路手动测试。稳定版安装示例保留如下。
+
 ## 适用环境
 
 - 已经配置好 WAN、可以管理 LuCI 的 OpenWrt 路由器，校园网使用 Dr.COM HTTP 门户。
@@ -118,6 +120,6 @@ opkg remove luci-app-campuslink campuslink
 python scripts/check_release.py
 ```
 
-该命令检查两次构建一致性、包路径/权限/JSON，并在 `dist/` 生成三个 IPK 与 `CampusLink-0.4.1-source.zip`。只需打包可运行 `python scripts/build_ipk.py`；Windows 可将 `python` 换成 `py -3`。SDK Makefile 在各 `packages/` 子目录，SDK/APK 构建尚未验证。根目录历史脚本不作为新插件安装工具。
+该命令检查两次构建一致性、包路径/权限/JSON，并在 `dist/` 生成三个 IPK 与按当前 LuCI 版本命名的源码包；本地实验版本为核心 0.4.0 / LuCI 0.4.2（`CampusLink-0.4.2-source.zip`），与上方已发布 v0.4.1 安装包区分。只需打包可运行 `python scripts/build_ipk.py`；Windows 可将 `python` 换成 `py -3`。SDK Makefile 在各 `packages/` 子目录，SDK/APK 构建尚未验证。根目录历史脚本不作为新插件安装工具。
 
-界面回归入口为 `node tests/ui_config.cjs`、`node tests/settings_config.cjs`、`node tests/ui_view.cjs`；映射和 shell 隔离验证为 `node tests/mwan3_mappings.cjs`、`node tests/mwan3_native.cjs`。原生 ucode 与设备验证见 [0.4.0](testing/0.4.0.md)、[0.4.1](testing/0.4.1.md)和[提供商契约](contracts/provider-v1.md)。模拟测试不能替代目标固件验证。
+界面回归入口为 `node tests/ui_config.cjs`、`node tests/settings_config.cjs`、`node tests/ui_view.cjs`；映射和 shell 隔离验证为 `node tests/mwan3_mappings.cjs`、`node tests/mwan3_native.cjs`。原生 ucode 与设备验证见 [0.4.0](testing/0.4.0.md)、[0.4.1](testing/0.4.1.md)和[提供商契约](contracts/provider-v1.md)。新增实验适配的 VM/协议/回环 curl 运行方法与局限见[实验适配](providers/experimental.md)。模拟测试不能替代目标固件验证。

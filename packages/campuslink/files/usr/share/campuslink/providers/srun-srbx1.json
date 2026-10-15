@@ -1,0 +1,11 @@
+{
+  "schema_version":1,"id":"srun-srbx1","label":"深澜 SRBX1（实验性）","credential_type":"username_password",
+  "capabilities":{"check":true,"login":true,"logout":false,"heartbeat":false},
+  "account_fields":[{"id":"username","label":"校园网账号","type":"string","required":true},{"id":"password","label":"校园网密码","type":"secret","required":true}],
+  "connection_fields":[
+    {"id":"server_url","label":"认证服务器 URL（含 http:// 或 https://）","type":"url","required":true},
+    {"id":"ac_id","label":"AC ID（留空自动获取）","type":"integer","required":false,"min":1,"max":65535},
+    {"id":"hmac_mode","label":"HMAC 变体","type":"enum","required":true,"default":"password","advanced":true,"choices":[{"value":"password","label":"使用密码（常见 SRBX1）"},{"value":"empty","label":"空消息（北理参考变体）"}]},
+    {"id":"probe_url","label":"联网探测地址","type":"url","required":true,"default":"http://connectivitycheck.platform.hicloud.com/generate_204","advanced":true}
+  ]
+}

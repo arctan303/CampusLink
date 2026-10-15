@@ -2,14 +2,12 @@ import * as fs from 'fs';
 import * as ubus from 'ubus';
 import * as uloop from 'uloop';
 import {read_json,write_json,monotime,result,merge_params,validate_config,public_config,validate_provider,validate_school,effective_connection,upgrade_config} from './common.uc';
-import * as drcom from './providers/drcom-http.uc';
-import * as mock from './providers/mock.uc';
+import { handlers } from './providers/registry.uc';
 
 const BASE = getenv('CAMPUSLINK_BASE') || '/usr/share/campuslink';
 const CONFIG = getenv('CAMPUSLINK_CONFIG') || '/etc/campuslink/config.json';
 const RUNTIME = getenv('CAMPUSLINK_RUNTIME') || '/var/run/campuslink';
 const OBJECT = getenv('CAMPUSLINK_OBJECT') || 'campuslink';
-const handlers = {'drcom-http':drcom, mock};
 let providers = {}, schools = {}, states = {}, jobs = {}, events = [], cooldowns = {}, sequence = 0;
 for (let path in (fs.glob(BASE + '/providers/*.json') || [])) { let p=read_json(path); if (handlers[p.id]) {validate_provider(p,handlers[p.id]);if(providers[p.id])die('duplicate_provider');providers[p.id]=p;} }
 for (let path in (fs.glob(BASE + '/schools/*.json') || [])) { let s=validate_school(read_json(path),providers);if(schools[s.id])die('duplicate_school');schools[s.id]=s; }
@@ -133,7 +131,7 @@ function snapshot() {
         let s=state(c), a=filter(cfg.accounts,(a)=>a.id==c.account)[0];
         push(status,{id:c.id,interface:c.interface,state:s.state,reason_code:s.reason_code,message:s.message,device:s.device,ip:s.ip,last_check:s.last_check,next_check_s:max(0,int(s.next_due-monotime())),cooldown_s:max(0,int(s.cooldown_until-monotime())),task_id:jobs[c.id]?.id || '',configured_account:a?.label,identity_verified:false,auto_login:c.auto_login});
     }
-    return {ok:true,version:'0.3.0',config:public_config(cfg),providers:map(keys(providers),(k)=>providers[k]),schools:map(keys(schools),(k)=>schools[k]),status,events,interfaces:(net.call('network.interface','dump',{})?.interface || [])};
+    return {ok:true,version:'0.4.0',config:public_config(cfg),providers:map(keys(providers),(k)=>providers[k]),schools:map(keys(schools),(k)=>schools[k]),status,events,interfaces:(net.call('network.interface','dump',{})?.interface || [])};
 };
 const object=bus.publish(OBJECT,{
     get:{args:{ubus_rpc_session:''},call:function(req){req.reply(snapshot());}},

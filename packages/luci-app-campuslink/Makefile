@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=CampusLink campus authentication
 LUCI_DEPENDS:=+campuslink +luci-base +rpcd +busybox
 LUCI_PKGARCH:=all
-PKG_VERSION:=0.4.1
+PKG_VERSION:=0.4.2
 PKG_RELEASE:=1
 PKG_LICENSE:=MIT
 define Build/Prepare/luci-app-campuslink
